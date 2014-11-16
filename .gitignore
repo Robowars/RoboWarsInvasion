@@ -1,6 +1,7 @@
 .gradle/
 build
 eclipse
+out
 *.iml
 *.ipr
 *.iws
