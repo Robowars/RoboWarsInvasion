@@ -10,7 +10,7 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 @Mod(modid = RoboWarsMod.MODID, version = RoboWarsMod.VERSION)
 public class RoboWarsMod
 {
-    public static final String MODID = "Robowars";
+    public static final String MODID = "robowars";
     public static final String VERSION = "0.1-ALPHA";
 
     @SidedProxy(clientSide="com.robowars.core.client.ClientProxy", serverSide ="com.robowars.core.CommonProxy")

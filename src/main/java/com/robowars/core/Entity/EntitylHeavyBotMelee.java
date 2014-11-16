@@ -12,6 +12,7 @@ public class EntitylHeavyBotMelee extends EntityAnimal {
     public EntitylHeavyBotMelee(World world) {
         super(world);
         setHealth(10);
+        this.setSize(0.9F, 1.3F);
     }
 
     @Override

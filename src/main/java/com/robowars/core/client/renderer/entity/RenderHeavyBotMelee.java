@@ -1,5 +1,6 @@
 package com.robowars.core.client.renderer.entity;
 
+import com.robowars.core.RoboWarsMod;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
@@ -16,6 +17,6 @@ public class RenderHeavyBotMelee extends RenderLiving {
 
     @Override
     protected ResourceLocation getEntityTexture(Entity entity) {
-        return null;
+        return new ResourceLocation(RoboWarsMod.MODID, "textures/entity/heavybotmelee.png");
     }
 }
