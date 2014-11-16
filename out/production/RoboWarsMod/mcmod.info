@@ -1,0 +1,14 @@
+[
+{
+  "modid": "Robowars",
+  "name": "Robowars",
+  "description": "Robots that will kill you",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
