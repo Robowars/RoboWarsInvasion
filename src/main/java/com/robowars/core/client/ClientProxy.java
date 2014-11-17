@@ -1,8 +1,14 @@
 package com.robowars.core.client;
 
 import com.robowars.core.CommonProxy;
-import com.robowars.core.Entity.EntitylHeavyBotMelee;
+import com.robowars.core.Entity.EntityBotMelee;
+import com.robowars.core.Entity.EntityBotSchoot;
+import com.robowars.core.Entity.EntityHeavyBotMelee;
+import com.robowars.core.client.model.ModelBotMelee;
+import com.robowars.core.client.model.ModelBotSchoot;
 import com.robowars.core.client.model.ModelHeavyBotMelee;
+import com.robowars.core.client.renderer.entity.RenderBotMelee;
+import com.robowars.core.client.renderer.entity.RenderBotSchoot;
 import com.robowars.core.client.renderer.entity.RenderHeavyBotMelee;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
@@ -12,7 +18,9 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 public class ClientProxy extends CommonProxy {
     @Override
     public void doStuff() {
-        RenderingRegistry.registerEntityRenderingHandler(EntitylHeavyBotMelee.class, new RenderHeavyBotMelee(new ModelHeavyBotMelee(), 0.5F));
+        RenderingRegistry.registerEntityRenderingHandler(EntityHeavyBotMelee.class, new RenderHeavyBotMelee(new ModelHeavyBotMelee(), 0.5F));
+        RenderingRegistry.registerEntityRenderingHandler(EntityBotSchoot.class, new RenderBotSchoot(new ModelBotSchoot(), 0.5F));
+        RenderingRegistry.registerEntityRenderingHandler(EntityBotMelee.class, new RenderBotMelee(new ModelBotMelee(), 0.5F));
         super.doStuff();
     }
 }
