@@ -1,8 +1,8 @@
 package com.robowars.core;
 
-import com.robowars.core.Entity.EntityBotMelee;
-import com.robowars.core.Entity.EntityBotSchoot;
-import com.robowars.core.Entity.EntityHeavyBotMelee;
+import com.robowars.core.entity.monster.EntityBotMelee;
+import com.robowars.core.entity.monster.EntityBotSchoot;
+import com.robowars.core.entity.monster.EntityHeavyBotMelee;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;

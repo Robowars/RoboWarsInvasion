@@ -1,9 +1,9 @@
 package com.robowars.core.client;
 
 import com.robowars.core.CommonProxy;
-import com.robowars.core.Entity.EntityBotMelee;
-import com.robowars.core.Entity.EntityBotSchoot;
-import com.robowars.core.Entity.EntityHeavyBotMelee;
+import com.robowars.core.entity.monster.EntityBotMelee;
+import com.robowars.core.entity.monster.EntityBotSchoot;
+import com.robowars.core.entity.monster.EntityHeavyBotMelee;
 import com.robowars.core.client.model.ModelBotMelee;
 import com.robowars.core.client.model.ModelBotSchoot;
 import com.robowars.core.client.model.ModelHeavyBotMelee;

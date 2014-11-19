@@ -1,6 +1,5 @@
-package com.robowars.core.Entity;
+package com.robowars.core.entity.monster;
 
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.world.World;
 
 /**
