@@ -9,7 +9,17 @@ import net.minecraft.world.World;
 public abstract class EntityBot extends EntityMob {
     public EntityBot(World p_i1738_1_) {
         super(p_i1738_1_);
-        setHealth(0.5F);
+        setHealth(20F);
         this.setSize(0.9F, 1.3F);
+    }
+
+    @Override
+    public boolean getCanSpawnHere() {
+        return true;
+    }
+
+    @Override
+    protected boolean canDespawn() {
+        return false;
     }
 }

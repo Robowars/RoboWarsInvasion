@@ -5,7 +5,7 @@ import net.minecraft.world.World;
 /**
  * Created by thomas on 16/11/14.
  */
-public class EntityHeavyBotMelee extends EntityBot {
+public class EntityHeavyBotMelee extends EntityBotMelee {
 
     public EntityHeavyBotMelee(World world) {
         super(world);
