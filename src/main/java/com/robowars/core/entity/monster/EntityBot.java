@@ -1,5 +1,6 @@
 package com.robowars.core.entity.monster;
 
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.world.World;
 
@@ -10,7 +11,13 @@ public abstract class EntityBot extends EntityMob {
     public EntityBot(World world) {
         super(world);
         setHealth(50F);
-        this.setSize(0.9F, 1.3F);
+        this.setSize(0.9F, 1.8F);
+    }
+
+    @Override
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(1.0D);
     }
 
     @Override

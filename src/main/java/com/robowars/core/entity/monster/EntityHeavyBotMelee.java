@@ -1,5 +1,6 @@
 package com.robowars.core.entity.monster;
 
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.world.World;
 
 /**
@@ -9,5 +10,11 @@ public class EntityHeavyBotMelee extends EntityBotMelee {
 
     public EntityHeavyBotMelee(World world) {
         super(world);
+    }
+
+    @Override
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(15.0F);
     }
 }
