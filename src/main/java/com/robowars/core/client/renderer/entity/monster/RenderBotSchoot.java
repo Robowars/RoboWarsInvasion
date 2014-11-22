@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
  */
 public class RenderBotSchoot extends RenderLiving {
 
-    public static final ResourceLocation texture = new ResourceLocation(RoboWarsMod.MODID, "textures/entity/botschoot.png");
+    public static final ResourceLocation texture = new ResourceLocation(RoboWarsMod.MODID, "textures/entity/botshoot/botschoot.png");
 
     public RenderBotSchoot(ModelBase modelBase, float v) {
         super(modelBase, v);

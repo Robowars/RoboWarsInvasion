@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
  */
 public class RenderHeavyBotMelee extends RenderLiving {
 
-    public static final ResourceLocation texture = new ResourceLocation(RoboWarsMod.MODID, "textures/entity/heavybotmelee.png");
+    public static final ResourceLocation texture = new ResourceLocation(RoboWarsMod.MODID, "textures/entity/heavybotmelee/heavybotmelee.png");
 
 
     public RenderHeavyBotMelee(ModelBase modelBase, float v) {
