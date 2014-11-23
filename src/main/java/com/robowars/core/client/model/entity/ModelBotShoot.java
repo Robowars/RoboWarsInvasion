@@ -9,13 +9,13 @@
 
 
 
-package com.robowars.core.client.model;
+package com.robowars.core.client.model.entity;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelBotSchoot extends ModelBase
+public class ModelBotShoot extends ModelBase
 {
   //fields
     ModelRenderer head;
@@ -33,7 +33,7 @@ public class ModelBotSchoot extends ModelBase
     ModelRenderer hover2;
     ModelRenderer hover3;
   
-  public ModelBotSchoot()
+  public ModelBotShoot()
   {
     textureWidth = 128;
     textureHeight = 64;

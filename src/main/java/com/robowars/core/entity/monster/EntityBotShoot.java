@@ -15,8 +15,8 @@ import net.minecraft.world.World;
 /**
  * Created by thomas on 17/11/14.
  */
-public class EntityBotSchoot extends EntityBot implements IRangedAttackMob {
-    public EntityBotSchoot(World p_i1738_1_) {
+public class EntityBotShoot extends EntityBot implements IRangedAttackMob {
+    public EntityBotShoot(World p_i1738_1_) {
         super(p_i1738_1_);
         this.tasks.addTask(1, new EntityAISwimming(this));
         this.tasks.addTask(2, new EntityAIArrowAttack(this, 1.0D, 30, 10.0F));

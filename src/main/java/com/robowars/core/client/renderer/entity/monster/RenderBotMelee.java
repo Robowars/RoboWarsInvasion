@@ -1,6 +1,7 @@
 package com.robowars.core.client.renderer.entity.monster;
 
 import com.robowars.core.RoboWarsMod;
+import com.robowars.core.client.model.entity.ModelBotMelee;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -15,11 +16,11 @@ import org.lwjgl.opengl.GL11;
 public class RenderBotMelee extends RenderLiving {
 
     public static final ResourceLocation texture = new ResourceLocation(RoboWarsMod.MODID, "textures/entity/botmelee/botmelee.png");
-    public static final ResourceLocation textureglow = new ResourceLocation(RoboWarsMod.MODID, "textures/entity/botmelee/botmelee_glow.png");
+    public static final ResourceLocation textureGlow = new ResourceLocation(RoboWarsMod.MODID, "textures/entity/botmelee/botmelee_glow.png");
 
-
-    public RenderBotMelee(ModelBase modelBase, float v) {
-        super(modelBase, v);
+    public RenderBotMelee(float v) {
+        super(new ModelBotMelee(), v);
+        setRenderPassModel(new ModelBotMelee());
     }
 
     @Override
@@ -34,7 +35,7 @@ public class RenderBotMelee extends RenderLiving {
             return -1;
         }
         else {
-            this.bindTexture(textureglow);
+            this.bindTexture(textureGlow);
             float f1 = 1.0F;
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glDisable(GL11.GL_ALPHA_TEST);
