@@ -17,6 +17,6 @@ public class EntityHeavyBotMelee extends EntityBotMelee {
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(15.0F);
-        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(80F);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(getHealth());
     }
 }

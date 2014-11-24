@@ -18,8 +18,8 @@ public class ModelLaser extends ModelBase
         textureHeight = 32;
 
         beam = new ModelRenderer(this, 1, 1);
-        beam.addBox(0F, -0.5F, -0.5F, 9, 1, 1);
-        beam.setRotationPoint(-4F, 16F, 0F);
+        beam.addBox(-4.5F, -0.5F, -0.5F, 9, 1, 1);
+        beam.setRotationPoint(0F, 23.5F, 0F);
         beam.setTextureSize(64, 32);
         beam.mirror = true;
         setRotation(beam, 0F, 0F, 0F);
