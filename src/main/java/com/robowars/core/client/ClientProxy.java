@@ -14,9 +14,6 @@ import com.robowars.core.entity.monster.EntityHeavyBotMelee;
 import com.robowars.core.entity.projectile.EntityLaser;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
-/**
- * Created by thomas on 16/11/14.
- */
 public class ClientProxy extends CommonProxy {
     @Override
     public void doStuff() {

@@ -26,7 +26,7 @@ public class RoboWarsMod
         EntityRegistry.registerGlobalEntityID(EntityHeavyBotMelee.class, "HeavyBotMelee", EntityRegistry.findGlobalUniqueEntityId(), 80, 1);
         EntityRegistry.registerGlobalEntityID(EntityBotMelee.class, "BotMelee", EntityRegistry.findGlobalUniqueEntityId(), 80, 1);
         EntityRegistry.registerGlobalEntityID(EntityBotShoot.class, "BotSchoot", EntityRegistry.findGlobalUniqueEntityId(), 80, 1);
-        EntityRegistry.registerGlobalEntityID(EntityLaser.class, "EntityLaser", EntityRegistry.findGlobalUniqueEntityId());
+        EntityRegistry.registerModEntity(EntityLaser.class, "EntityLaser", EntityRegistry.findGlobalUniqueEntityId(),this,  64, 10, true);
         proxy.doStuff();
     }
 }

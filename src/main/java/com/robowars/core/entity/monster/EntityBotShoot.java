@@ -32,8 +32,8 @@ public class EntityBotShoot extends EntityBot implements IRangedAttackMob {
 
     @Override
     public void attackEntityWithRangedAttack(EntityLivingBase entity, float v) {
-        EntityLaser var3 = new EntityLaser(this.worldObj, this, entity , 1.6F, (float)(14 - this.worldObj.difficultySetting.getDifficultyId() * 4));
-        var3.setDamage(10F);
+        EntityLaser var3 = new EntityLaser(this.worldObj, this);//, this, entity , 1.6F, (float)(14 - this.worldObj.difficultySetting.getDifficultyId() * 4));
+        //var3.setDamage(10F);
 
         this.playSound("random.bow", 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
         this.worldObj.spawnEntityInWorld(var3);
@@ -43,5 +43,10 @@ public class EntityBotShoot extends EntityBot implements IRangedAttackMob {
     @Override
     public boolean attackEntityAsMob(Entity p_attackEntityAsMob_1_) {
         return false;
+    }
+
+    @Override
+    public float getEyeHeight() {
+        return super.getEyeHeight();
     }
 }
