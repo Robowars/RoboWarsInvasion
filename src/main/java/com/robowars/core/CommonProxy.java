@@ -5,5 +5,5 @@ package com.robowars.core;
  */
 public class CommonProxy {
 
-    public void doStuff(){}
+    public void RegisterRendering(){}
 }

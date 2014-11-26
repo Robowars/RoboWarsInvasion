@@ -10,7 +10,6 @@ public abstract class GenericItem extends Item {
 
     public GenericItem(){
         setCreativeTab(RoboWarsMod.CREATIVE_TAB);
-        setUnlocalizedName(RoboWarsMod.MODID + "." + getName());
     }
 
     public abstract String getName();

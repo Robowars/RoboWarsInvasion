@@ -19,12 +19,12 @@ import net.minecraftforge.client.MinecraftForgeClient;
 
 public class ClientProxy extends CommonProxy {
     @Override
-    public void doStuff() {
+    public void RegisterRendering() {
         RenderingRegistry.registerEntityRenderingHandler(EntityHeavyBotMelee.class, new RenderHeavyBotMelee(new ModelHeavyBotMelee(), 0.5F));
         RenderingRegistry.registerEntityRenderingHandler(EntityBotShoot.class, new RenderBotShoot(new ModelBotShoot(), 0.5F));
         RenderingRegistry.registerEntityRenderingHandler(EntityBotMelee.class, new RenderBotMelee(0.5F));
         RenderingRegistry.registerEntityRenderingHandler(EntityLaser.class, new RenderLaser());
         MinecraftForgeClient.registerItemRenderer(RoboWarsMod.ITEM_POWER_CORE, new ItemRender(new ModelPowerCore()));
-        super.doStuff();
+        super.RegisterRendering();
     }
 }
