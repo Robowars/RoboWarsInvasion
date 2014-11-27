@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 /**
  * Created by thomas on 26/11/2014.
@@ -25,7 +26,7 @@ public class MonsterLayer implements LayerRenderer {
         this.render.bindTexture(glowingTexture);
         GlStateManager.enableBlend();
         GlStateManager.disableAlpha();
-        GlStateManager.blendFunc(1, 1);
+        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         if(p_177148_1_.isInvisible()) {
             GlStateManager.depthMask(false);
         } else {
