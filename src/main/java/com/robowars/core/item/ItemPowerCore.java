@@ -10,7 +10,8 @@ public class ItemPowerCore extends GenericItem {
 
     public ItemPowerCore(){
         super();
-        setMaxStackSize(1);
+        this.setMaxStackSize(1);
+
     }
 
     @Override

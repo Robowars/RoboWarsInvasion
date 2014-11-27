@@ -22,26 +22,19 @@ public class RoboWarsMod
 
     public static final GenericItem ITEM_POWER_CORE = new ItemPowerCore();
 
-    public static CreativeTabs CREATIVE_TAB;
-
-
     @SidedProxy(clientSide="com.robowars.core.client.ClientProxy", serverSide ="com.robowars.core.CommonProxy")
     public static CommonProxy proxy;
     
     @Mod.EventHandler
     public void init(FMLInitializationEvent event)
     {
-        CREATIVE_TAB = new CreativeTabs(MODID) {
-            @Override
-            public Item getTabIconItem() {
-                return ITEM_POWER_CORE ;
-            }
-        };
+        
         EntityRegistry.registerGlobalEntityID(EntityHeavyBotMelee.class, "HeavyBotMelee", EntityRegistry.findGlobalUniqueEntityId(), 80, 1);
         EntityRegistry.registerGlobalEntityID(EntityBotMelee.class, "BotMelee", EntityRegistry.findGlobalUniqueEntityId(), 80, 1);
         EntityRegistry.registerGlobalEntityID(EntityBotShoot.class, "BotSchoot", EntityRegistry.findGlobalUniqueEntityId(), 80, 1);
         EntityRegistry.registerModEntity(EntityLaser.class, "EntityLaser", EntityRegistry.findGlobalUniqueEntityId(), this, 64, 10, true);
         GameRegistry.registerItem(ITEM_POWER_CORE, ITEM_POWER_CORE.getName());
+
         proxy.RegisterRendering();
     }
 }

@@ -9,6 +9,11 @@ import net.minecraft.item.ItemSword;
  */
 public class ItemBladeSword extends GenericItem {
 
+    public ItemBladeSword(){
+
+
+    }
+
     @Override
     public String getName() {
         return "bladesword";
