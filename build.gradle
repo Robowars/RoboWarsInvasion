@@ -22,8 +22,9 @@ group= "com.robowars.robowars" // http://maven.apache.org/guides/mini/guide-nami
 archivesBaseName = "robowars"
 
 minecraft {
-    version = "1.7.10-10.13.2.1236"
+    version = "1.8-11.14.0.1239-1.8"
     runDir = "eclipse"
+    mappings = "snapshot_nodoc_20140930"
 }
 
 dependencies {

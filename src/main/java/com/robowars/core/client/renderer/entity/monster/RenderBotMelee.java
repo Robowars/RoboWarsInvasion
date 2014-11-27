@@ -19,9 +19,7 @@ public class RenderBotMelee extends MonsterRender {
     public static final ResourceLocation textureGlow = new ResourceLocation(RoboWarsMod.MODID, "textures/entity/botmelee/botmelee_glow.png");
 
     public RenderBotMelee(float v) {
-        super(new ModelBotMelee(), v);
-        setRenderPassModel(new ModelBotMelee());
-        setGlowingTexture(textureGlow);
+        super(new ModelBotMelee(), v, textureGlow);
     }
 
     @Override

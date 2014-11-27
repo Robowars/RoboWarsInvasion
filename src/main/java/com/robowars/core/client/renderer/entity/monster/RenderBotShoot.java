@@ -15,11 +15,8 @@ public class RenderBotShoot extends MonsterRender {
     public static final ResourceLocation texture = new ResourceLocation(RoboWarsMod.MODID, "textures/entity/botshoot/botshoot.png");
     public static final ResourceLocation textureGlow = new ResourceLocation(RoboWarsMod.MODID, "textures/entity/botshoot/botshoot_glow.png");
 
-
     public RenderBotShoot(ModelBase modelBase, float v) {
-        super(modelBase, v);
-        setRenderPassModel(modelBase);
-        setGlowingTexture(textureGlow);
+        super(modelBase, v, textureGlow);
     }
 
     @Override

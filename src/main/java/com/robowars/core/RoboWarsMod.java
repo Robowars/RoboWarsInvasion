@@ -6,14 +6,13 @@ import com.robowars.core.entity.monster.EntityHeavyBotMelee;
 import com.robowars.core.entity.projectile.EntityLaser;
 import com.robowars.core.item.GenericItem;
 import com.robowars.core.item.ItemPowerCore;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod(modid = RoboWarsMod.MODID, version = RoboWarsMod.VERSION)
 public class RoboWarsMod
@@ -29,7 +28,7 @@ public class RoboWarsMod
     @SidedProxy(clientSide="com.robowars.core.client.ClientProxy", serverSide ="com.robowars.core.CommonProxy")
     public static CommonProxy proxy;
     
-    @EventHandler
+    @Mod.EventHandler
     public void init(FMLInitializationEvent event)
     {
         CREATIVE_TAB = new CreativeTabs(MODID) {

@@ -14,11 +14,6 @@ public class ItemPowerCore extends GenericItem {
     }
 
     @Override
-    public Item setTextureName(String name) {
-        return this;
-    }
-
-    @Override
     public String getName() {
         return "PowerCore";
     }

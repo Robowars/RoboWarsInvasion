@@ -26,18 +26,13 @@ public class EntityBotShoot extends EntityBot implements IRangedAttackMob {
     }
 
     @Override
-    protected boolean isAIEnabled() {
-        return true;
-    }
-
-    @Override
     public void attackEntityWithRangedAttack(EntityLivingBase entity, float v) {
-        EntityLaser var3 = new EntityLaser(this.worldObj, this, entity , 1.6F, (float)(14 - this.worldObj.difficultySetting.getDifficultyId() * 4));
+       /* EntityLaser var3 = new EntityLaser(this.worldObj, this, entity , 1.6F, (float)(14 - this.worldObj.getDifficulty().getDifficultyId()* 4));
         var3.setDamage(10F);
 
         this.playSound("random.bow", 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
         this.worldObj.spawnEntityInWorld(var3);
-
+*/
     }
 
     @Override

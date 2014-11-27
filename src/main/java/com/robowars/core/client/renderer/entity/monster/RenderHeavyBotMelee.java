@@ -16,9 +16,7 @@ public class RenderHeavyBotMelee extends MonsterRender {
 
 
     public RenderHeavyBotMelee(ModelBase modelBase, float v) {
-        super(modelBase, v);
-        setRenderPassModel(modelBase);
-        setGlowingTexture(textureGlow);
+        super(modelBase, v, textureGlow);
     }
 
     @Override
