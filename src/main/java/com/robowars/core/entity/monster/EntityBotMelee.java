@@ -26,5 +26,6 @@ public class EntityBotMelee extends EntityBot {
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(10.0F);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(50F);
     }
 }

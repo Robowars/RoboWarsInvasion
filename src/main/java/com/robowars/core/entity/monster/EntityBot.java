@@ -25,7 +25,6 @@ public abstract class EntityBot extends EntityMob {
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(.5D);
-        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(50F);
     }
 
     @Override
