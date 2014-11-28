@@ -11,11 +11,12 @@ public class ItemPowerCore extends GenericItem {
     public ItemPowerCore(){
         super();
         this.setMaxStackSize(1);
-
+         this.setUnlocalizedName(this.getName());
     }
 
     @Override
     public String getName() {
         return "PowerCore";
     }
+
 }

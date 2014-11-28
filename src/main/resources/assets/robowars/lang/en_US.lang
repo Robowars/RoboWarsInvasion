@@ -1,0 +1,10 @@
+#CreativeTab
+itemGroup.RoboWars=RoboWars Creative Tab
+
+#Item
+item.PowerCore.name=Powercore
+
+#Bot Entity
+entity.BotMelee.name=Melee Bot
+entity.HeavyBotMelee.name=Heavy Melee Bot
+entity.BotShoot.name=Shoot Bot

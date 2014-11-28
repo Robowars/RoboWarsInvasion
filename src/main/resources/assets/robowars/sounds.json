@@ -1,0 +1,41 @@
+{
+"mob.bot.hit":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "mob/bot/hit1",
+            "mob/bot/hit2",
+            "mob/bot/hit3",
+            "mob/bot/hit4",
+            "mob/bot/hit5",
+            "mob/bot/hit6",
+            "mob/bot/hit7"
+        ]
+    },
+    "mob.bot.say":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "mob/bot/say1",
+            "mob/bot/say2",
+            "mob/bot/say3",
+            "mob/bot/say4",
+            "mob/bot/say5",
+            "mob/bot/say6",
+            "mob/bot/say7",
+            "mob/bot/say8"
+        ]
+    },
+	"mob.bot.death":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "mob/bot/death1",
+            "mob/bot/death2",
+            "mob/bot/death3"
+        ]
+    }
+}

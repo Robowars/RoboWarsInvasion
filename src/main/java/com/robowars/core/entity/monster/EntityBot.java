@@ -1,5 +1,6 @@
 package com.robowars.core.entity.monster;
 
+import com.robowars.core.RoboWarsMod;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -28,6 +29,25 @@ public abstract class EntityBot extends EntityMob {
     }
 
     @Override
+    protected String getLivingSound(){
+
+        return "robowars:mob.bot.say";
+
+    }
+
+    @Override
+    protected String getHurtSound()
+    {
+        return "robowars:mob.bot.hit";
+    }
+
+    @Override
+    protected String getDeathSound()
+    {
+        return null;
+    }
+
+    @Override
     public boolean getCanSpawnHere() {
         return true;
     }
@@ -35,5 +55,11 @@ public abstract class EntityBot extends EntityMob {
     @Override
     protected boolean canDespawn() {
         return false;
+    }
+
+    @Override
+    protected float getSoundVolume()
+    {
+        return 0.6F;
     }
 }
