@@ -35,5 +35,17 @@
         [
             "mob/bot/boom"
         ]
+    },
+    "mob.bot.shoot":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "mob/bot/shoot1",
+            "mob/bot/shoot2",
+            "mob/bot/shoot3",
+            "mob/bot/shoot4",
+            "mob/bot/shoot5"
+        ]
     }
 }
