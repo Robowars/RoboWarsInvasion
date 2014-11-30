@@ -4,6 +4,8 @@ import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
+import net.minecraft.entity.EntityLiving;
+
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
@@ -74,10 +76,10 @@ public class CubeRenderer {
 
 		//setup cube vbo, ebo
 		VERTS= new byte[]{//since scaled by uniforms, store as unnormalized bytes. Dat bandwidth tho.
-				1, 1, 1,//+++ 0
-				1, 1,-1,//++- 1
-				1,-1, 1,//+-+ 2
-				1,-1,-1,//+-- 3
+				 1, 1, 1,//+++ 0
+				 1, 1,-1,//++- 1
+				 1,-1, 1,//+-+ 2
+				 1,-1,-1,//+-- 3
 				-1, 1, 1,//-++ 4
 				-1, 1,-1,//-+- 5
 				-1,-1, 1,//--+ 6
@@ -147,7 +149,7 @@ public class CubeRenderer {
 		buf.position(maxcubes*ATTRIB_SIZE);
 		buf.flip();
 		GL15.glBufferData(GL31.GL_TEXTURE_BUFFER, buf, GL15.GL_DYNAMIC_DRAW);
-		buf.clear();
+		buf.clear();EntityLiving
 
 		GL11.glPushAttrib(GL11.GL_TEXTURE_BIT);
 		buftex= GL11.glGenTextures();
