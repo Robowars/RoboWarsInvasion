@@ -9,10 +9,19 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
+import net.minecraft.util.DamageSource;
+
+
+
 /**
  * Created by thomas on 17/11/14.
+ * Modded  by Evydder
  */
 public abstract class EntityBot extends EntityMob {
+
+    private int explosionRadius = 1;
+    static final int DEATH_TIME= 48;
+
     public EntityBot(World world) {
         super(world);
         setHealth(50F);
@@ -45,7 +54,7 @@ public abstract class EntityBot extends EntityMob {
     @Override
     protected String getDeathSound()
     {
-        return null;
+        return "robowars:mob.bot.death";
     }
 
     @Override
@@ -61,6 +70,27 @@ public abstract class EntityBot extends EntityMob {
     @Override
     protected float getSoundVolume()
     {
-        return 0.6F;
+        return 0.4F;
     }
+
+    @Override
+    public void onDeath(DamageSource cause){
+        super.onDeath(cause);
+        deathTime-= DEATH_TIME-20;//20 is default time for all entityLivings
+    }
+
+    @Override
+    public void setDead(){
+        super.setDead();
+        explode();
+    }
+
+    protected void explode(){
+
+        float f = 2.0F;
+
+        this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) this.explosionRadius * f, false);
+
+    }
+
 }
