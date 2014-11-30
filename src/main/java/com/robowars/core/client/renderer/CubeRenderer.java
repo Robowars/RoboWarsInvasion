@@ -149,7 +149,7 @@ public class CubeRenderer {
 		buf.position(maxcubes*ATTRIB_SIZE);
 		buf.flip();
 		GL15.glBufferData(GL31.GL_TEXTURE_BUFFER, buf, GL15.GL_DYNAMIC_DRAW);
-		buf.clear();EntityLiving
+		buf.clear();
 
 		GL11.glPushAttrib(GL11.GL_TEXTURE_BIT);
 		buftex= GL11.glGenTextures();
