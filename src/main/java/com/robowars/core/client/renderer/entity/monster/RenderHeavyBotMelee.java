@@ -9,7 +9,7 @@ import net.minecraft.util.ResourceLocation;
 /**
  * Created by thomas on 16/11/14.
  */
-public class RenderHeavyBotMelee extends MonsterRender {
+public class RenderHeavyBotMelee extends RenderBot {
 
     public static final ResourceLocation texture = new ResourceLocation(RoboWarsMod.MODID, "textures/entity/heavybotmelee/heavybotmelee.png");
     public static final ResourceLocation textureGlow = new ResourceLocation(RoboWarsMod.MODID, "textures/entity/heavybotmelee/heavybotmelee_glow.png");

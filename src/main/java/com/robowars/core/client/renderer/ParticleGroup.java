@@ -1,12 +1,14 @@
 package com.robowars.core.client.renderer;
 
+import org.lwjgl.util.vector.Vector3f;
+
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ParticleGroup {
-	CubeRenderer cr;
-	int count;
+	public CubeRenderer cr;
+	protected int count;
 	float[] particles;
 	
 	public ParticleGroup(int count){
@@ -18,24 +20,29 @@ public class ParticleGroup {
 	
 	@SubscribeEvent
 	public void render(RenderWorldLastEvent e){
-		transform(e.partialTicks);
+		render(0, e.partialTicks);
+	}
+		
+	public void render(int tick, float pT){
+		transform(tick, pT);
 		cr.render(particles);
 	}
 	
-	float time;
-	float timestep= .1f;
-	public void transform(float pT){
-		time+= timestep;
+	Vector3f in= new Vector3f(), out= new Vector3f();
+	public void transform(int tick, float pT){
 		for(int i=0; i!=count; i++){
-			float x= particles[i*3+0];
-			float y= particles[i*3+1];
-			float z= particles[i*3+2];
-			
-			float t= time+i/10000f;
-			float h= Math.abs(t%10-5)/2;
-			particles[i*3+0]= MathHelper.sin(t);
-			particles[i*3+1]= h;
-			particles[i*3+2]= MathHelper.cos(t);
+			in.x= particles[i*3+0];
+			in.y= particles[i*3+1];
+			in.z= particles[i*3+2];
+			transformParticle(in, out, i, tick, pT);
+			particles[i*3+0]= out.x;
+			particles[i*3+1]= out.y;
+			particles[i*3+2]= out.z;
 		}
+	}
+	public void transformParticle(Vector3f in, Vector3f out, int particleNumber, int tick, float pT){}
+	
+	public static float noise(float t){
+		return (float)Math.sin(t*4264536.6433);
 	}
 }

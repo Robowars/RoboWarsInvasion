@@ -31,7 +31,5 @@ public class ClientProxy extends CommonProxy {
         RenderingRegistry.registerEntityRenderingHandler(EntityBotMelee.class, new RenderBotMelee(0.5F));
         //RenderingRegistry.registerEntityRenderingHandler(EntityLaser.class, new RenderLaser());
         MinecraftForgeClient.registerItemRenderer(RoboWarsMod.ITEM_POWER_CORE, new ItemRender(new ModelPowerCore()));
-        MinecraftForge.EVENT_BUS.register(new ParticleGroup(10000));
-        super.RegisterRendering();//i dont think this does anything?
     }
 }

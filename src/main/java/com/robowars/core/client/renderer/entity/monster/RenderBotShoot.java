@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 /**
  * Created by thomas on 17/11/14.
  */
-public class RenderBotShoot extends MonsterRender {
+public class RenderBotShoot extends RenderBot {
 
     public static final ResourceLocation texture = new ResourceLocation(RoboWarsMod.MODID, "textures/entity/botshoot/botshoot.png");
     public static final ResourceLocation textureGlow = new ResourceLocation(RoboWarsMod.MODID, "textures/entity/botshoot/botshoot_glow.png");

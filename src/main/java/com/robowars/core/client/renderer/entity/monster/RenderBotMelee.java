@@ -13,7 +13,7 @@ import org.lwjgl.opengl.GL11;
 /**
  * Created by thomas on 17/11/14.
  */
-public class RenderBotMelee extends MonsterRender {
+public class RenderBotMelee extends RenderBot{
 
     public static final ResourceLocation texture = new ResourceLocation(RoboWarsMod.MODID, "textures/entity/botmelee/botmelee.png");
     public static final ResourceLocation textureGlow = new ResourceLocation(RoboWarsMod.MODID, "textures/entity/botmelee/botmelee_glow.png");

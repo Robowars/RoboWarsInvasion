@@ -11,11 +11,12 @@
 
 package com.robowars.core.client.model.entity;
 
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelHeavyBotMelee extends ModelBase
+import com.robowars.core.client.renderer.entity.monster.RenderBot.ModelBaseBot;
+
+public class ModelHeavyBotMelee extends ModelBaseBot
 {
     //fields
     ModelRenderer head;
