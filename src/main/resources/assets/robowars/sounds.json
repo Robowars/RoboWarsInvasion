@@ -33,7 +33,9 @@
         "category": "neutral",
         "sounds":
         [
-            "mob/bot/boom"
+            "mob/bot/death1",
+            "mob/bot/death2",
+            "mob/bot/death3"
         ]
     }
 }
