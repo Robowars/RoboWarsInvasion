@@ -25,13 +25,13 @@ public class ParticleGroup {
 	float time;
 	float timestep= .1f;
 	public void transform(float pT){
-		time+= timestep;
+		time+= timestep/40;
 		for(int i=0; i!=count; i++){
 			float x= particles[i*3+0];
 			float y= particles[i*3+1];
 			float z= particles[i*3+2];
 			
-			float t= time+i/10000f;
+			float t= time+i;
 			float h= Math.abs(t%10-5)/2;
 			particles[i*3+0]= MathHelper.sin(t);
 			particles[i*3+1]= h;
