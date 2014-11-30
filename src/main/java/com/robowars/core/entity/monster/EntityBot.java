@@ -7,6 +7,7 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 
 import net.minecraft.util.DamageSource;
@@ -21,6 +22,7 @@ public abstract class EntityBot extends EntityMob {
 
     private int explosionRadius = 1;
     static final int DEATH_TIME= 48;
+    private int deathTicks = DEATH_TIME;
 
     public EntityBot(World world) {
         super(world);
@@ -76,21 +78,31 @@ public abstract class EntityBot extends EntityMob {
     @Override
     public void onDeath(DamageSource cause){
         super.onDeath(cause);
-        deathTime-= DEATH_TIME-20;//20 is default time for all entityLivings
+        //deathTime-= DEATH_TIME-20;//20 is default time for all entityLivings
     }
 
     @Override
     public void setDead(){
         super.setDead();
-        explode();
+    }
+
+    @Override
+    protected void onDeathUpdate() {
+        deathTicks--;
+        smokeSigare();
+        if (deathTicks <= 0)
+            explode();
+        if (deathTicks == -5)
+            setDead();
+    }
+
+    protected void smokeSigare(){
+        this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_LARGE, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
     }
 
     protected void explode(){
-
         float f = 2.0F;
-
         this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) this.explosionRadius * f, false);
-
     }
 
 }

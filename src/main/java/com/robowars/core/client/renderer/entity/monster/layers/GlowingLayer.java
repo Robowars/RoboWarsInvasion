@@ -12,12 +12,12 @@ import org.lwjgl.opengl.GL11;
 /**
  * Created by thomas on 26/11/2014.
  */
-public class MonsterLayer implements LayerRenderer {
+public class GlowingLayer implements LayerRenderer {
 
     private ResourceLocation glowingTexture;
     private MonsterRender render;
 
-    public MonsterLayer(ResourceLocation glowingTexture, MonsterRender render){
+    public GlowingLayer(ResourceLocation glowingTexture, MonsterRender render){
         this.glowingTexture = glowingTexture;
         this.render = render;
     }
