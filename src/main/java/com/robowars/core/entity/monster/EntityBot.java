@@ -1,12 +1,14 @@
 package com.robowars.core.entity.monster;
 
 import com.robowars.core.RoboWarsMod;
+
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 /**
@@ -28,6 +30,19 @@ public abstract class EntityBot extends EntityMob {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(.5D);
     }
+    
+    static final int DEATH_TIME= 40;
+    @Override
+    public void onDeath(DamageSource cause){
+    	super.onDeath(cause);
+    	deathTime-= DEATH_TIME-20;//20 is default time for all entityLivings
+    }
+    @Override
+    public void setDead(){
+    	super.setDead();
+    	explode();
+    }
+    protected void explode(){}
 
     @Override
     protected String getLivingSound(){
