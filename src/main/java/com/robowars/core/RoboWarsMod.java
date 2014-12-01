@@ -35,7 +35,8 @@ public class RoboWarsMod
         EntityRegistry.registerGlobalEntityID(EntityHeavyBotMelee.class, "HeavyBotMelee", EntityRegistry.findGlobalUniqueEntityId(), 80, 1);
         EntityRegistry.registerGlobalEntityID(EntityBotMelee.class, "BotMelee", EntityRegistry.findGlobalUniqueEntityId(), 80, 1);
         EntityRegistry.registerGlobalEntityID(EntityBotShoot.class, "BotShoot", EntityRegistry.findGlobalUniqueEntityId(), 80, 1);
-        EntityRegistry.registerModEntity(EntityLaser.class, "EntityLaser", EntityRegistry.findGlobalUniqueEntityId(), this, 64, 10, true);
+//        EntityRegistry.registerGlobalEntityID(EntityLaser.class, "Laser", EntityRegistry.findGlobalUniqueEntityId(), 80, 1);
+        EntityRegistry.registerModEntity(EntityLaser.class, "Laser", EntityRegistry.findGlobalUniqueEntityId(), MODID, 100, 10, false);
         GameRegistry.registerItem(ITEM_POWER_CORE, ITEM_POWER_CORE.getName());
 
         proxy.RegisterRendering();

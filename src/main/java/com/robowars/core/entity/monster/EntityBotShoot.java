@@ -2,6 +2,7 @@ package com.robowars.core.entity.monster;
 
 import com.google.common.base.Predicate;
 import com.robowars.core.entity.projectile.EntityLaser;
+
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
@@ -19,7 +20,7 @@ import net.minecraft.world.World;
  * Created by thomas on 17/11/14.
  */
 public class EntityBotShoot extends EntityBot implements IRangedAttackMob {
-    private EntityAIArrowAttack aiArrowAttack = new EntityAIArrowAttack(this, 2.0D,50,50,15f);
+    private EntityAIArrowAttack aiArrowAttack = new EntityAILaserAttack(this, 2.0D,50,50,15f);
     private EntityAIAttackOnCollide aiAttackOnCollide = new EntityAIAttackOnCollide(this, EntityLiving.class, 5D, false);
 
     public EntityBotShoot(World p_i1738_1_) {
@@ -38,29 +39,39 @@ public class EntityBotShoot extends EntityBot implements IRangedAttackMob {
 
 
     }
+    public static class EntityAILaserAttack extends EntityAIArrowAttack{
+
+		public EntityAILaserAttack(IRangedAttackMob p_i1650_1_,
+				double p_i1650_2_, int p_i1650_4_, int p_i1650_5_,
+				float p_i1650_6_) {
+			super(p_i1650_1_, p_i1650_2_, p_i1650_4_, p_i1650_5_, p_i1650_6_);
+		}
+    	
+    }
 
     @Override
-    public void attackEntityWithRangedAttack(EntityLivingBase p_82196_1_, float p_82196_2_)
-    {
+    public void attackEntityWithRangedAttack(EntityLivingBase target, float p_82196_2_){
 
-        EntityArrow entityarrow = new EntityArrow(this.worldObj, this, p_82196_1_, 1.6F, (float)(14 - this.worldObj.getDifficulty().getDifficultyId() * 4));
-        int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, this.getHeldItem());
-        int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, this.getHeldItem());
-        entityarrow.setDamage((double)(p_82196_2_ * 2.0F) + this.rand.nextGaussian() * 0.25D + (double)((float)this.worldObj.getDifficulty().getDifficultyId() * 0.11F));
-
-        if (i > 0)
-        {
-            entityarrow.setDamage(entityarrow.getDamage() + (double)i * 0.5D + 0.5D);
-        }
-
-        if (j > 0)
-        {
-            entityarrow.setKnockbackStrength(j);
-        }
-
-        entityarrow.setDamage(entityarrow.getDamage() + (double)i * 10D + 0.5D);
-        this.playSound("robowars:mob.bot.shoot", 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
-        this.worldObj.spawnEntityInWorld(entityarrow);
+//        EntityArrow entityarrow = new EntityArrow(this.worldObj, this, target, 1.6F, (float)(14 - this.worldObj.getDifficulty().getDifficultyId() * 4));
+//        int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, this.getHeldItem());
+//        int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, this.getHeldItem());
+//        double dmg= (double)(p_82196_2_ * 2.0F) + this.rand.nextGaussian() * 0.25D + (double)((float)this.worldObj.getDifficulty().getDifficultyId() * 0.11F);
+//        entityarrow.setDamage(dmg);
+//
+//        if (i > 0)
+//        {
+//            entityarrow.setDamage(entityarrow.getDamage() + (double)i * 0.5D + 0.5D);
+//        }
+//
+//        if (j > 0)
+//        {
+//            entityarrow.setKnockbackStrength(j);
+//        }
+//
+//        entityarrow.setDamage(entityarrow.getDamage() + (double)i * 10D + 0.5D);
+//        this.worldObj.spawnEntityInWorld(entityarrow);
+    	
+    	this.worldObj.spawnEntityInWorld(new EntityLaser(this, .02, 0, 1));
     }
 
 /*

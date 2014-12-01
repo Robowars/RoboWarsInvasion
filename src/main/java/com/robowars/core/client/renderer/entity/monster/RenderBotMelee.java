@@ -18,8 +18,8 @@ public class RenderBotMelee extends RenderBot{
     public static final ResourceLocation texture = new ResourceLocation(RoboWarsMod.MODID, "textures/entity/botmelee/botmelee.png");
     public static final ResourceLocation textureGlow = new ResourceLocation(RoboWarsMod.MODID, "textures/entity/botmelee/botmelee_glow.png");
 
-    public RenderBotMelee(float v) {
-        super(new ModelBotMelee(), v, textureGlow);
+    public RenderBotMelee() {
+        super(new ModelBotMelee(), 0.5F, textureGlow);
     }
 
     @Override
