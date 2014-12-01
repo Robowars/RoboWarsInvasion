@@ -1,6 +1,8 @@
 package com.robowars.core.entity.monster;
 
 import com.robowars.core.RoboWarsMod;
+import com.robowars.core.client.renderer.entity.monster.RenderBot.Sparks;
+
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -9,8 +11,9 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
-
 import net.minecraft.util.DamageSource;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 
 
@@ -32,6 +35,24 @@ public abstract class EntityBot extends EntityMob {
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, false, true));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityAnimal.class, false, true));
         this.isImmuneToFire = true;
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public Sparks sparks= new Sparks();
+    float lasthp;
+    @Override
+    public void onUpdate(){
+    	super.onUpdate();
+    	this.hurtTime= 0;
+    	if(worldObj.isRemote){//client only spark fx
+    		float curhp= getHealth();
+    		float dHealth= curhp-lasthp;
+    		lasthp= curhp;
+    		if(dHealth<0){
+    			sparks.make((int)-dHealth*5);
+    		}
+    		sparks.update();
+    	}
     }
 
     @Override
@@ -83,17 +104,21 @@ public abstract class EntityBot extends EntityMob {
 
     @Override
     public void setDead(){
+        explode();
         super.setDead();
     }
 
     @Override
     protected void onDeathUpdate() {
         deathTicks--;
-        smokeSigare();
-        if (deathTicks <= 0)
-            explode();
-        if (deathTicks == -5)
+        if(ticksExisted%3==0)//less frequent
+        	smokeSigare();
+        if (deathTicks<=-20)
             setDead();
+
+    	if(worldObj.isRemote){
+    		sparks.make(1);
+    	}
     }
 
     protected void smokeSigare(){

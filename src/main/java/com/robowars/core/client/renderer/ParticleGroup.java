@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class ParticleGroup {
 	public CubeRenderer cr;
 	protected int count;
-	float[] particles;
+	protected float[] particles;
 	
 	public ParticleGroup(int count){
 		cr= new CubeRenderer(count);
