@@ -52,26 +52,28 @@ public class EntityBotShoot extends EntityBot implements IRangedAttackMob {
     @Override
     public void attackEntityWithRangedAttack(EntityLivingBase target, float p_82196_2_){
 
-//        EntityArrow entityarrow = new EntityArrow(this.worldObj, this, target, 1.6F, (float)(14 - this.worldObj.getDifficulty().getDifficultyId() * 4));
-//        int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, this.getHeldItem());
-//        int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, this.getHeldItem());
-//        double dmg= (double)(p_82196_2_ * 2.0F) + this.rand.nextGaussian() * 0.25D + (double)((float)this.worldObj.getDifficulty().getDifficultyId() * 0.11F);
-//        entityarrow.setDamage(dmg);
-//
-//        if (i > 0)
-//        {
-//            entityarrow.setDamage(entityarrow.getDamage() + (double)i * 0.5D + 0.5D);
-//        }
-//
-//        if (j > 0)
-//        {
-//            entityarrow.setKnockbackStrength(j);
-//        }
-//
-//        entityarrow.setDamage(entityarrow.getDamage() + (double)i * 10D + 0.5D);
-//        this.worldObj.spawnEntityInWorld(entityarrow);
+        EntityArrow entityarrow = new EntityArrow(this.worldObj, this, target, 1.6F, (float)(14 - this.worldObj.getDifficulty().getDifficultyId() * 4));
+        int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, this.getHeldItem());
+        int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, this.getHeldItem());
+        double dmg= (double)(p_82196_2_ * 2.0F) + this.rand.nextGaussian() * 0.25D + (double)((float)this.worldObj.getDifficulty().getDifficultyId() * 0.11F);
+        entityarrow.setDamage(dmg);
+
+        if (i > 0)
+        {
+            entityarrow.setDamage(entityarrow.getDamage() + (double)i * 0.5D + 0.5D);
+        }
+
+        if (j > 0)
+        {
+            entityarrow.setKnockbackStrength(j);
+        }
+
+        entityarrow.setDamage(entityarrow.getDamage() + (double)i * 10D + 0.5D);
+        this.worldObj.spawnEntityInWorld(entityarrow);
     	
-    	this.worldObj.spawnEntityInWorld(new EntityLaser(this, .02, 0, 1));
+        //this.worldObj.spawnEntityInWorld(new EntityLaser(this, .1, 0, 1));
+        //TODO Crashes from cmodex on client thread, stacktrack doesnt point to a local src,
+        //i suspect it has to do with registration
     }
 
 /*
