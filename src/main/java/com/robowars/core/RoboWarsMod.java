@@ -7,7 +7,9 @@ import com.robowars.core.entity.projectile.EntityLaser;
 import com.robowars.core.item.GenericItem;
 import com.robowars.core.item.ItemPowerCore;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.Item;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -17,7 +19,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import java.rmi.registry.Registry;
 
 @Mod(modid = RoboWarsMod.MODID, version = RoboWarsMod.VERSION)
-public class RoboWarsMod
+public class    RoboWarsMod
 {
     public static final String MODID = "robowars";
     public static final String VERSION = "0.1-ALPHA";
@@ -31,7 +33,6 @@ public class RoboWarsMod
     @Mod.EventHandler
     public void init(FMLInitializationEvent event)
     {
-        
         EntityRegistry.registerGlobalEntityID(EntityHeavyBotMelee.class, "HeavyBotMelee", EntityRegistry.findGlobalUniqueEntityId(), 80, 1);
         EntityRegistry.registerGlobalEntityID(EntityBotMelee.class, "BotMelee", EntityRegistry.findGlobalUniqueEntityId(), 80, 1);
         EntityRegistry.registerGlobalEntityID(EntityBotShoot.class, "BotShoot", EntityRegistry.findGlobalUniqueEntityId(), 80, 1);
@@ -39,6 +40,19 @@ public class RoboWarsMod
         EntityRegistry.registerModEntity(EntityLaser.class, "Laser", EntityRegistry.findGlobalUniqueEntityId(), MODID, 100, 10, false);
         GameRegistry.registerItem(ITEM_POWER_CORE, ITEM_POWER_CORE.getName());
 
+        addSpawn(EntityHeavyBotMelee.class);
+        addSpawn(EntityBotMelee.class);
+        addSpawn(EntityBotShoot.class);
         proxy.RegisterRendering();
+    }
+
+    /**
+     * Lets kill everyone
+     *
+      * @param entity
+     */
+    private void addSpawn(Class... entity){
+        for (Class e : entity)
+            EntityRegistry.addSpawn(e, 5, 1, 2, EnumCreatureType.MONSTER,  BiomeGenBase.getBiomeGenArray());
     }
 }
