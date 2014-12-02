@@ -41,7 +41,7 @@ public class    RoboWarsMod
         GameRegistry.registerItem(ITEM_POWER_CORE, ITEM_POWER_CORE.getName());
 
         addSpawn(1, 3, EntityHeavyBotMelee.class);
-        addSpawn(4, 6, EntityBotMelee.class,EntityBotShoot.class);
+        addSpawn(4, 6, EntityBotMelee.class, EntityBotShoot.class);
         proxy.RegisterRendering();
     }
 
@@ -51,7 +51,12 @@ public class    RoboWarsMod
       * @param entity
      */
     private void addSpawn(int min, int max, Class... entity){
-        for (Class e : entity)
-            EntityRegistry.addSpawn(e, 5, 1, 2, EnumCreatureType.MONSTER,  BiomeGenBase.getBiomeGenArray());
+        System.out.println(BiomeGenBase.getBiomeGenArray());
+        for (Class e : entity) {
+            for (BiomeGenBase b : BiomeGenBase.getBiomeGenArray())
+                if (b != null)
+                    EntityRegistry.addSpawn(e, 5, 1, 2, EnumCreatureType.MONSTER, b);
+                else break; //not sure if this will break compatibility with other mods
+        }
     }
 }
