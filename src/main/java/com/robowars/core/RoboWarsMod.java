@@ -40,9 +40,8 @@ public class    RoboWarsMod
         EntityRegistry.registerModEntity(EntityLaser.class, "Laser", EntityRegistry.findGlobalUniqueEntityId(), MODID, 100, 10, false);
         GameRegistry.registerItem(ITEM_POWER_CORE, ITEM_POWER_CORE.getName());
 
-        addSpawn(EntityHeavyBotMelee.class);
-        addSpawn(EntityBotMelee.class);
-        addSpawn(EntityBotShoot.class);
+        addSpawn(1, 3, EntityHeavyBotMelee.class);
+        addSpawn(4, 6, EntityBotMelee.class,EntityBotShoot.class);
         proxy.RegisterRendering();
     }
 
@@ -51,7 +50,7 @@ public class    RoboWarsMod
      *
       * @param entity
      */
-    private void addSpawn(Class... entity){
+    private void addSpawn(int min, int max, Class... entity){
         for (Class e : entity)
             EntityRegistry.addSpawn(e, 5, 1, 2, EnumCreatureType.MONSTER,  BiomeGenBase.getBiomeGenArray());
     }
