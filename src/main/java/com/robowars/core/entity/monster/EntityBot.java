@@ -130,4 +130,10 @@ public abstract class EntityBot extends EntityMob {
         this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) this.explosionRadius * f, false);
     }
 
+    @Override
+    public void onLivingUpdate() {
+        super.onLivingUpdate();
+        if (!onGround && this.motionY < 0.0D)
+            motionY *=0.6;
+    }
 }
