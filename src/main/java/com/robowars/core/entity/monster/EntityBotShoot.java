@@ -12,8 +12,11 @@ import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 /**
@@ -31,6 +34,7 @@ public class EntityBotShoot extends EntityBot implements IRangedAttackMob {
         this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityAgeable.class, 8.0F));
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityMob.class, 16.0F));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityVillager.class, false));
         this.targetTasks.addTask(3, new AINearestAttackableTargetNonCreeper(this, EntityLiving.class, 10, false, true, IMob.field_175450_e));
         this.tasks.addTask(7, new EntityAILookIdle(this));
         this.tasks.addTask(8, this.aiArrowAttack);
@@ -49,18 +53,33 @@ public class EntityBotShoot extends EntityBot implements IRangedAttackMob {
     	
     }
 
+    public void setCombatTask()
+    {
+        this.tasks.removeTask(this.aiAttackOnCollide);
+        this.tasks.removeTask(this.aiArrowAttack);
+        ItemStack itemstack = this.getHeldItem();
+
+
+            this.tasks.addTask(4, this.aiArrowAttack);
+
+    }
+
     @Override
     public void attackEntityWithRangedAttack(EntityLivingBase target, float p_82196_2_) {
 
         //EntityArrow entityarrow = new EntityArrow(this.worldObj, this, target, 1.6F, (float)(14 - this.worldObj.getDifficulty().getDifficultyId() * 4));
-        EntityArrow entityarrow = new EntityArrow(this.worldObj, this, target, 500f, (float) (0));
+        EntityArrow entityarrow = new EntityArrow(this.worldObj, this, target, 500f, (float) (100));
 
         int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, this.getHeldItem());
         int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, this.getHeldItem());
-        double dmg = (double) (p_82196_2_ * 2.0F) + this.rand.nextGaussian() * 0.25D + (double) ((float) this.worldObj.getDifficulty().getDifficultyId() * 0.11F);
+        //double dmg = (double) (p_82196_2_ * 2.0F) + this.rand.nextGaussian() * 0.25D + (double) ((float) this.worldObj.getDifficulty().getDifficultyId() * 0.11F);
         //entityarrow.setDamage(dmg);
-        entityarrow.setDamage(entityarrow.getDamage() + (double) i * 10D + 0.5D);
+        //entityarrow.setDamage(entityarrow.getDamage() + (double) i * 10D + 0.5D);
 
+
+
+//Debug Target
+//System.out.println(target.toString());
         if (target instanceof EntityBotShoot) {
 
             target = null;
@@ -82,6 +101,7 @@ public class EntityBotShoot extends EntityBot implements IRangedAttackMob {
             //TODO Crashes from cmodex on client thread, stacktrack doesnt point to a local src,
             //i suspect it has to do with registration
         }
+
     }
 /*
     @Override
@@ -102,10 +122,10 @@ public class EntityBotShoot extends EntityBot implements IRangedAttackMob {
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(50F);
     }
 
-    @Override
-    public boolean attackEntityAsMob(Entity p_attackEntityAsMob_1_) {
-        return false;
-    }
+  //  @Override
+  //  public boolean attackEntityAsMob(Entity p_attackEntityAsMob_1_) {
+  //      return false;
+ //   }
 
     @Override
     public float getEyeHeight() {
