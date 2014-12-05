@@ -7,6 +7,7 @@ import com.robowars.core.client.model.entity.ModelHeavyBotMelee;
 import com.robowars.core.client.model.item.ModelPowerCore;
 import com.robowars.core.client.renderer.CubeRenderer;
 import com.robowars.core.client.renderer.ParticleGroup;
+import com.robowars.core.client.renderer.RenderWarp;
 import com.robowars.core.client.renderer.entity.monster.RenderBotMelee;
 import com.robowars.core.client.renderer.entity.monster.RenderBotShoot;
 import com.robowars.core.client.renderer.entity.monster.RenderHeavyBotMelee;
@@ -17,6 +18,7 @@ import com.robowars.core.entity.monster.EntityBotShoot;
 import com.robowars.core.entity.monster.EntityHeavyBotMelee;
 import com.robowars.core.entity.projectile.EntityLaser;
 
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.FMLClientHandler;
@@ -31,5 +33,7 @@ public class ClientProxy extends CommonProxy {
         RenderingRegistry.registerEntityRenderingHandler(EntityBotMelee.class, new RenderBotMelee());
         RenderingRegistry.registerEntityRenderingHandler(EntityLaser.class, new RenderLaser());
         MinecraftForgeClient.registerItemRenderer(RoboWarsMod.ITEM_POWER_CORE, new ItemRender(new ModelPowerCore()));
+        if(OpenGlHelper.isFramebufferEnabled())
+        	MinecraftForge.EVENT_BUS.register(new RenderWarp());
     }
 }

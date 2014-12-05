@@ -1,7 +1,9 @@
 package com.robowars.core.client.renderer;
 
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
@@ -12,36 +14,53 @@ import org.lwjgl.opengl.GL30;
 import org.lwjgl.opengl.GL31;
 import org.lwjgl.util.vector.Matrix4f;
 
+import com.sun.xml.internal.ws.message.ByteArrayAttachment;
+
+import scala.actors.threadpool.Arrays;
+
 /**Author: Khlorghaal
  * Public Domain, attribution preferred*/
 public class CubeRenderer {
 	static int program;
-	static int attlocpos, ulocppos, ulocmvp, uloccolor, ulocscale;//binding points
+	static int attlocpos, ulocppos, ulocmvp, uloccolors, ulocscale;//binding points
 
 	//using literals, sue me
 	static String vshsrc= 
 			"#version 150 core\n"//don't forget \n with preprocessor
 			+ "uniform mat4 mvp;"
 			+ "uniform samplerBuffer ppos;"
+			+ "uniform samplerBuffer colors;"
 			+ "uniform float scale;"
 			+ ""
 			+ "in vec3 posin;"
+			+ "flat out vec4 color;"
 			+ "void main(){"
-			+ "vec3 offset= texelFetch(ppos, gl_InstanceID).xyz;"
+			+ ""
+			+ "int x= gl_InstanceID*3+0;"//because bufftexes cant rgb32f
+			+ "int y= gl_InstanceID*3+1;"
+			+ "int z= gl_InstanceID*3+2;"
+			+ "vec3 offset= vec3( "
+			+ " texelFetch(ppos, x).x, "
+			+ " texelFetch(ppos, y).x, "
+			+ " texelFetch(ppos, z).x"
+			+ ");"
 			+ "gl_Position= mvp*vec4(posin*scale+offset, 1);"
+			+ ""
+			+ "color= texelFetch(colors, gl_InstanceID);"
 			+ "}";
 	static String fshsrc= 
 			"#version 150 core\n"
-					+ "uniform vec4 color;"
-					+ ""
+					+ "flat in vec4 color;"
 					+ "out vec4 colorout;"
 					+ "void main(){"
+					+ ""
 					+ "colorout= color;"
+					+ ""
 					+ "}";
 
 	static ByteBuffer buf= BufferUtils.createByteBuffer(512*4);
 	static int VBO, EBO, VAO;//of a regular cube, particle positions are in the buffer texture
-	static final int ATTRIB_SIZE= 3*4;
+	static final int POS_SIZE= 3*4;
 	static byte[] VERTS, INDICIES;
 	static{
 		program= GL20.glCreateProgram();
@@ -60,12 +79,13 @@ public class CubeRenderer {
 
 		attlocpos= GL20.glGetAttribLocation(program, "posin");
 		ulocppos= GL20.glGetUniformLocation(program, "ppos");
+		uloccolors= GL20.glGetUniformLocation(program, "colors");
 		ulocmvp= GL20.glGetUniformLocation(program, "mvp");
 		ulocscale= GL20.glGetUniformLocation(program, "scale");
-		uloccolor= GL20.glGetUniformLocation(program, "color");
 
 		GL20.glUseProgram(program);
-		GL20.glUniform1i(ulocppos, 0);//sampler uni only needs bound once
+		GL20.glUniform1i(ulocppos, 0);//sampler unis only needs bound once
+		GL20.glUniform1i(uloccolors, 1);
 		GL20.glUseProgram(0);
 
 		//setup cube vbo, ebo
@@ -103,19 +123,20 @@ public class CubeRenderer {
 
 		VBO= GL15.glGenBuffers();
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, VBO);
+		buf.clear();
 		buf.put(VERTS);
 		buf.flip();
 		GL15.glBufferData(GL15.GL_ARRAY_BUFFER, buf, GL15.GL_STATIC_DRAW);
-		buf.clear();
 
 		EBO= GL15.glGenBuffers();
 		GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, EBO);
+		buf.clear();
 		buf.put(INDICIES);
 		buf.flip();
 		GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, buf, GL15.GL_STATIC_DRAW);
+		
 		buf.clear();
 
-		//setup VAO
 		VAO= GL30.glGenVertexArrays();
 		GL30.glBindVertexArray(VAO);
 		GL20.glEnableVertexAttribArray(attlocpos);
@@ -127,103 +148,114 @@ public class CubeRenderer {
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
 		GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
-
-
-	int buftex, texbuf;//storing particle positions
+	
+	int postex, colortex, posbuf, colorbuf;//storing particle positions
 	int maxcubes;
 	/**Must only be constructed from render thread*/
 	public CubeRenderer(int maxcubes){
 		this.maxcubes= maxcubes;
-		if(buf.capacity()<maxcubes*ATTRIB_SIZE){
-			buf= BufferUtils.createByteBuffer(maxcubes*ATTRIB_SIZE);
+		if(buf.capacity()<maxcubes*POS_SIZE){
+			buf= BufferUtils.createByteBuffer(maxcubes*POS_SIZE);
 		}
 
-		texbuf= GL15.glGenBuffers();
-		GL15.glBindBuffer(GL31.GL_TEXTURE_BUFFER, texbuf);
-		buf.position(maxcubes*ATTRIB_SIZE);
-		buf.flip();
-		GL15.glBufferData(GL31.GL_TEXTURE_BUFFER, buf, GL15.GL_DYNAMIC_DRAW);
-		buf.clear();
-
-		GL11.glPushAttrib(GL11.GL_TEXTURE_BIT);
-		buftex= GL11.glGenTextures();
-		GL13.glActiveTexture(GL13.GL_TEXTURE0);
-		GL11.glBindTexture(GL31.GL_TEXTURE_BUFFER, buftex);
-		GL31.glTexBuffer(GL31.GL_TEXTURE_BUFFER, GL30.GL_RGB32F, texbuf);
-		GL11.glPopAttrib();
+		//buffer texture buffer allocation
+		posbuf= GL15.glGenBuffers();
+		GL15.glBindBuffer(GL31.GL_TEXTURE_BUFFER, posbuf);
+		GL15.glBufferData(GL31.GL_TEXTURE_BUFFER, maxcubes*POS_SIZE, GL15.GL_DYNAMIC_DRAW);
+		
+		colorbuf= GL15.glGenBuffers();
+		GL15.glBindBuffer(GL31.GL_TEXTURE_BUFFER, colorbuf);
+		GL15.glBufferData(GL31.GL_TEXTURE_BUFFER, maxcubes*4, GL15.GL_DYNAMIC_DRAW);
 
 		GL15.glBindBuffer(GL31.GL_TEXTURE_BUFFER, 0);
+		
+		//buffer texture setup
+		GL11.glPushAttrib(GL11.GL_TEXTURE_BIT);
+
+		postex= GL11.glGenTextures();
+		GL11.glBindTexture(GL31.GL_TEXTURE_BUFFER, postex);
+		GL31.glTexBuffer(GL31.GL_TEXTURE_BUFFER, GL30.GL_R32F, posbuf);
+		
+		colortex= GL11.glGenTextures();
+		GL11.glBindTexture(GL31.GL_TEXTURE_BUFFER, colortex);
+		GL31.glTexBuffer(GL31.GL_TEXTURE_BUFFER, GL11.GL_RGBA8, colorbuf);
+		
 		GL11.glBindTexture(GL31.GL_TEXTURE_BUFFER, 0);
+		
+		
+		
+		
+		GL11.glPopAttrib();
 	}
 
-	public float[] color= new float[]{0,0,1,.7f};
 	public float scale= .9f;
-	public void render(float[] particles){		
-		if(particles.length/ATTRIB_SIZE>maxcubes){
+	public void render(float[] particles){  render(particles, null);  }
+	public void render(float[] particles, byte[] colors){		
+		if(particles.length/POS_SIZE>maxcubes){
 			return;
 		}
 
-		GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT);//blending
+		GL11.glPushAttrib(GL11.GL_BLEND);
 		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glPushAttrib(GL11.GL_ALPHA_TEST);
+		GL11.glDisable(GL11.GL_ALPHA_TEST);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		GL20.glUseProgram(program);
 
-		useLegacyMVP(ulocmvp);
-		GL20.glUniform4f(uloccolor, color[0], color[1], color[2], color[3]);
+		ShaderUtil.useLegacyMVP(ulocmvp);
 		GL20.glUniform1f(ulocscale, scale/2);
 
-		FloatBuffer fbuf= buf.asFloatBuffer();
-		fbuf.put(particles);
-		fbuf.flip();
-		GL15.glBindBuffer(GL31.GL_TEXTURE_BUFFER, texbuf);
-		GL15.glBufferSubData(GL31.GL_TEXTURE_BUFFER, 0, fbuf);
-		buf.clear();
+		pushPositions(particles);
+		if(colors!=null)
+			pushColors(colors);
 
 		GL11.glPushAttrib(GL11.GL_TEXTURE);
+		GL13.glActiveTexture(GL13.GL_TEXTURE1);
+		GL11.glBindTexture(GL31.GL_TEXTURE_BUFFER, colortex);
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);
-		GL11.glBindTexture(GL31.GL_TEXTURE_BUFFER, buftex);
+		GL11.glBindTexture(GL31.GL_TEXTURE_BUFFER, postex);
 
 		GL30.glBindVertexArray(VAO);
 		GL31.glDrawElementsInstanced(GL11.GL_TRIANGLES, INDICIES.length, GL11.GL_UNSIGNED_BYTE, 0, particles.length/3);
 		GL30.glBindVertexArray(0);
 
-
-		GL11.glBindTexture(GL31.GL_TEXTURE_BUFFER, 0);
 		GL20.glUseProgram(0);
 
 		GL11.glPopAttrib();
 		GL11.glPopAttrib();
+		GL11.glPopAttrib();
 	}
-
-	private static FloatBuffer matbuf= BufferUtils.createFloatBuffer(16);
-	/**Must be called when the matrix is in the appropriate state, generally does not work with UI rendering*/
-	public static void useLegacyMVP(int uniformLocation){
-		Matrix4f mv= new Matrix4f();
-		GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, matbuf);
-		mv.load(matbuf);
-		matbuf.clear();
-
-		Matrix4f p= new Matrix4f();
-		GL11.glGetFloat(GL11.GL_PROJECTION_MATRIX, matbuf);
-		p.load(matbuf);
-		matbuf.clear();
-
-		Matrix4f mvp= new Matrix4f();
-		Matrix4f.mul(p, mv, mvp);
-		mvp.store(matbuf);
-		matbuf.clear();
-		GL20.glUniformMatrix4(uniformLocation, false, matbuf);
-
-		getLightColor();
+	
+	public void pushPositions(float[] positions){
+		buf.clear();
+		FloatBuffer fbuf= buf.asFloatBuffer();
+		fbuf.put(positions);
+		fbuf.flip();
+		GL15.glBindBuffer(GL31.GL_TEXTURE_BUFFER, posbuf);
+		GL15.glBufferSubData(GL31.GL_TEXTURE_BUFFER, 0, fbuf);
 	}
-
-	public static float[] getLightColor(){
-		float r=0;
-		float g=0;
-		float b=0;
-		return new float[]{r,g,b};
+	public void pushColors(byte[] colors){
+		buf.clear();
+		buf.put(colors);
+		buf.flip();
+		GL15.glBindBuffer(GL31.GL_TEXTURE_BUFFER, colorbuf);
+		GL15.glBufferSubData(GL31.GL_TEXTURE_BUFFER, 0, buf);	
 	}
-
-
+	public void fillColor(int color){
+		int r= (color&0xFF000000)>>>24;
+		int g= (color&0x00FF0000)>>>16;
+		int b= (color&0x0000FF00)>>>8;
+		int a= (color&0x000000FF)>>>0;
+		buf.clear();
+		for(int i=0; i!=maxcubes; i++){
+			buf.put((byte)r);
+			buf.put((byte)g);
+			buf.put((byte)b);
+			buf.put((byte)a);
+		}
+		buf.flip();
+		GL15.glBindBuffer(GL31.GL_TEXTURE_BUFFER, colorbuf);
+		GL15.glBufferSubData(GL31.GL_TEXTURE_BUFFER, 0, buf);
+	}
 }

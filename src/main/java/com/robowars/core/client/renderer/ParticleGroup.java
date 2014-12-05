@@ -6,15 +6,27 @@ import net.minecraft.util.MathHelper;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-public class ParticleGroup {
+public abstract class ParticleGroup {
 	public CubeRenderer cr;
 	protected int count;
 	protected float[] particles;
-	
-	public ParticleGroup(int count){
+	private int color= 0;
+	protected byte[] colors= null;
+
+	private void init(int count){
 		cr= new CubeRenderer(count);
 		this.count= count;
 		particles= new float[count*3];
+	}
+	/**Dynamic color*/
+	public ParticleGroup(int count){
+		init(count);
+		this.colors= new byte[count*4];
+	}
+	/**Uniform color*/
+	public ParticleGroup(int count, int color){
+		init(count);
+		cr.fillColor(color);
 	}
 	
 	
@@ -25,7 +37,10 @@ public class ParticleGroup {
 		
 	public void render(int tick, float pT){
 		transform(tick, pT);
-		cr.render(particles);
+		if(colors==null)
+			cr.render(particles);
+		else
+			cr.render(particles, colors);
 	}
 	
 	Vector3f in= new Vector3f(), out= new Vector3f();
@@ -40,9 +55,9 @@ public class ParticleGroup {
 			particles[i*3+2]= out.z;
 		}
 	}
-	public void transformParticle(Vector3f in, Vector3f out, int particleNumber, int tick, float pT){}
+	protected void transformParticle(Vector3f in, Vector3f out, int particleNumber, int tick, float pT){}
 	
 	public static float noise(float t){
-		return (float)Math.sin(t*4264536.6433);
+		return (float)Math.sin(t*42645366.433);
 	}
 }

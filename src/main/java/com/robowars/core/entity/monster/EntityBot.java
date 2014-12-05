@@ -49,9 +49,8 @@ public abstract class EntityBot extends EntityMob {
     		float dHealth= curhp-lasthp;
     		lasthp= curhp;
     		if(dHealth<0){
-    			sparks.make((int)-dHealth*5);
+    			sparks.make(ticksExisted, (int)-dHealth*5);
     		}
-    		sparks.update();
     	}
     }
 
@@ -117,7 +116,7 @@ public abstract class EntityBot extends EntityMob {
             setDead();
 
     	if(worldObj.isRemote){
-    		sparks.make(1);
+    		sparks.make(ticksExisted, 1);
     	}
     }
 
