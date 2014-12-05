@@ -134,7 +134,7 @@ public class RenderWarp {
 	}
 
 	@SubscribeEvent
-	public void render(RenderGameOverlayEvent.Pre e){
+	public void render(RenderWorldLastEvent e){
 //		if(!e.type.equals(RenderGameOverlayEvent.ElementType.ALL))
 //			return;
 		if(Display.wasResized())
@@ -142,20 +142,20 @@ public class RenderWarp {
 
 //		init();
 
-		GL11.glPushAttrib(GL11.GL_TEXTURE_BINDING_2D);
+		GL11.glPushAttrib(GL11.GL_TEXTURE_BIT);
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, tex);
 		GL11.glCopyTexSubImage2D(GL11.GL_TEXTURE_2D, 0, 0, 0, 0, 0, w, h);
-		
+//		
 		GL11.glPushAttrib(GL11.GL_DEPTH_TEST);
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glPushAttrib(GL11.GL_BLEND);
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glPushAttrib(GL11.GL_CULL_FACE);
 		GL11.glDisable(GL11.GL_CULL_FACE);
-
+//
 		draw();
-
+		
 		GL11.glPopAttrib();
 		GL11.glPopAttrib();
 		GL11.glPopAttrib();

@@ -154,6 +154,7 @@ import com.robowars.core.entity.monster.EntityBot;
 
 
 //				GL11.glPushMatrix();
+//				GL11.glScalef(3, 3, 3);
 //				RenderWarp.queue(ShaderUtil.getLegacyMVP());
 //				GL11.glPopMatrix();
 			}
